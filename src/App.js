@@ -1,22 +1,17 @@
-import logo from './logo.svg';
 import './App.css';
+import { Departments, DepartmentForm } from './components/departments/Departments';
+import { Department } from './components/departments/Department';
+import { Courses } from './components/courses/Courses';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Kennsluskráin</h1>
+        <Department slug="hagfraedideild"/>
+        <Departments title="Nýjustu deildir" text="Fyrsta deild" />
+        <DepartmentForm />
+        <Courses title="Áfangar" slug="hagfraedideild"/>
       </header>
     </div>
   );
