@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
+import { Link } from "react-router-dom";
+
+import '../../App.css';
 import { generateApiUrl } from '../../utils/generateApiUrl';
 //import { Button } from '../form/Button'
 
-export function Departments({ title, text }) {
+export function Departments() {
     // type State = 'empty' | 'data' | 'error' | 'loading'
     const [state, setState] = useState('empty');
     const [departments, setDepartments] = useState([]);
@@ -33,18 +36,21 @@ export function Departments({ title, text }) {
 
     return (
         <section>
-            <h2>{title}</h2>
+            <h2>Deildir á kennsluskrá</h2>
             {state === 'empty' && (<p>Engar deildir</p>)}
             {state === 'error' && (<p>Villa við að sækja deildir</p>)}
             {state === 'loading' && (<p>Sæki deildir...</p>)}
             <ul>
                 {state === 'data' && departments.map((department, i) => {
                     return (
-                        <li key={i}>{department.title}</li>
+                        <>
+                        <li><Link to={department.slug} key={i} className="App-link">{department.title}</Link></li>
+                        </>
                     )
                 })}
             </ul>
-            <button onClick={fetchDepartments}>Sækja deild</button>
+            <button onClick={fetchDepartments}>Sækja allar deildir</button>
+            <DepartmentForm />
         </section>
     )
 }
@@ -53,14 +59,16 @@ export function DepartmentForm() {
     const [state, setState] = useState("empty");
     const [errors, setErrors] = useState([]);
     const [name, setName] = useState("");
+    const [description, setDescription] = useState("");
   
-    async function createDepartment(name) {
+    async function createDepartment(name, description) {
       setState("loading");
       try {
         const body = {
           title: name,
+          description: description
         };
-        const response = await fetch(URL, {
+        const response = await fetch(generateApiUrl('departments'), {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -75,8 +83,7 @@ export function DepartmentForm() {
             setErrors(responseJson.errors);
           }
         } else {
-          //const json = await response.json();
-          setState("sucess");
+          setState("success");
         }
       } catch (e) {
         setState("error");
@@ -87,33 +94,41 @@ export function DepartmentForm() {
     const onSubmitHandler = (e) => {
       e.preventDefault();
   
-      console.log("senda: ", name);
+      console.log("nam: ", name);
+      console.log("desc: ", description);
   
-      createDepartment(name);
+      createDepartment(name, description);
     };
   
-    const onInputChange = (e) => {
+    const onInputChangeName = (e) => {
       setName(e.target.value);
     };
-  
-    console.log(name);
+
+    const onInputChangeDesc = (e) => {
+        setDescription(e.target.value);
+      };
   
     return (
       <>
-        <h2>Ný deild</h2>
+        <h2>Búa til nýja deild</h2>
         <form onSubmit={onSubmitHandler}>
           <div>
-            <label for="name">Nafn: </label>
-            <input id="name" type="text" value={name} onChange={onInputChange} />
+            <label for="name">Nafn deildar: </label>
+            <input id="name" type="text" value={name} onChange={onInputChangeName} />
+            <label for="name">  *</label>
+          </div>
+          <div>
+            <label for="description">Um deildina: </label>
+            <input id="description" type="text" value={description} onChange={onInputChangeDesc} />
           </div>
   
-          <button>Búa til nýja deild</button>
+          <button>Búa til</button>
         </form>
-        {state === "empty" && <p>engar deildir</p>}
+        {state === "empty" && <p></p>}
         {state === "error" && (
           <>
             {" "}
-            <p>villa við að búa til deild</p>
+            <p>Villa við að búa til deild</p>
             <p>Villur:</p>
             <ul>
               {errors.map((error, i) => {

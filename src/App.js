@@ -1,17 +1,32 @@
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 import './App.css';
-import { Departments, DepartmentForm } from './components/departments/Departments';
+import { Layout } from './components/pages/Layout';
+import { Departments } from './components/departments/Departments';
 import { Department } from './components/departments/Department';
 import { Courses } from './components/courses/Courses';
+import { Course } from './components/courses/Course';
+import { Home } from './components/pages/Home';
+
+
+
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Kennsluskráin</h1>
-        <Department slug="hagfraedideild"/>
-        <Departments title="Nýjustu deildir" text="Fyrsta deild" />
-        <DepartmentForm />
-        <Courses title="Áfangar" slug="hagfraedideild"/>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Home />} />
+              <Route path="departments" element={<Departments />} />
+              <Route path="departments/:slug" element={<Department />} />
+              <Route path="departments/:slug/courses" element={<Courses />} />
+              <Route path="departments/:slug/courses/:courseId" element={<Course />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
       </header>
     </div>
   );
