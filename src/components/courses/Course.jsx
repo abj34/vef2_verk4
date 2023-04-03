@@ -74,17 +74,28 @@ export function Course() {
     return (
         <section>
             <h2>{course.title}</h2>
-            <ul>
-            <li>{course.courseId}</li>
-            <li>{course.units}</li>
-            <li>{course.semester}</li>
-            <li>{course.level}</li>
-            <li>{course.url}</li>
-            </ul>
-            
-
-            <Link to={`/departments/${slug}/courses/`}>Aftur til baka</Link>
-
+            <table>
+                <tr>
+                    <th>Áfanganúmer</th>
+                    <th>Einingar</th>
+                    <th>Önn</th>
+                    <th>Námsleið</th>
+                    <th>Hlekkur á áfanga</th>
+                </tr>
+                <tr>
+                    <td>{course.courseId}</td>
+                    <td>{course.units}</td>
+                    <td>{course.semester}</td>
+                    <td>{course.level}</td>
+                    <td><Link to={course.url} className="App-link">{course.url}</Link></td>
+                </tr>
+            </table>
+            <div>
+                <Link to={`/departments/${slug}/courses/`}>Aftur til baka</Link>
+            </div>            
+            <div>
+                <p></p>
+            </div>
             <button onClick={removeCourse} className="remove-button">Fjarlægja deild</button>
         </section>
     )

@@ -2,7 +2,6 @@ import '../../App.css';
 import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { generateApiUrl } from '../../utils/generateApiUrl';
-import { CourseForm } from '../courses/Courses';
 
 export function Department() {
     const { slug } = useParams();
@@ -76,12 +75,13 @@ export function Department() {
         <section>
             <h2>{department.title}</h2>
             <p>{department.description}</p>
-
-            <CourseForm />
-            
-            <Link to={`/departments/${department.slug}/courses`}>Sjá alla áfanga á braut</Link>
-
-            <button onClick={removeDepartment}>Fjarlægja deild</button>
+            <div>
+                <Link to={`/departments/${department.slug}/courses`}>Sjá alla áfanga á braut</Link>
+            </div>
+            <div>
+                <p></p>
+            </div>
+            <button className="remove-button" onClick={removeDepartment}>Fjarlægja deild</button>
         </section>
     )
 }

@@ -26,9 +26,27 @@
 
 .button {
   padding: 10px;
-  border: solid black 2px;
+  border: solid black 1px;
   border-radius: 15px;
   background-color: #def12d;
+}
+
+.remove-button {
+  padding: 10px;
+  border: solid black 1px;
+  border-radius: 15px;
+  background-color: #ee2525;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  border: solid black 2px;
+  padding: 5px;
+  font-size: 20px;
 }
 
 .App-link {

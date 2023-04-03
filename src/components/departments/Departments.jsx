@@ -36,21 +36,25 @@ export function Departments() {
 
     return (
         <section>
-            <h2>Deildir á kennsluskrá</h2>
+            <h2>Kennsluskrá</h2>
+            <DepartmentForm />
+            <h3>Listi af deildum</h3>
             {state === 'empty' && (<p>Engar deildir</p>)}
             {state === 'error' && (<p>Villa við að sækja deildir</p>)}
             {state === 'loading' && (<p>Sæki deildir...</p>)}
-            <ul>
+            <table>
                 {state === 'data' && departments.map((department, i) => {
                     return (
                         <>
-                        <li><Link to={department.slug} key={i} className="App-link">{department.title}</Link></li>
+                            <tr>
+                                <td><Link to={`/departments/${department.slug}`} key={i} className="App-link">{department.title}</Link></td>
+                            </tr>
                         </>
                     )
                 })}
-            </ul>
-            <button onClick={fetchDepartments}>Sækja allar deildir</button>
-            <DepartmentForm />
+            </table>
+            <button className="button" onClick={fetchDepartments}>Uppfæra lista</button>
+
         </section>
     )
 }
@@ -110,7 +114,7 @@ export function DepartmentForm() {
   
     return (
       <>
-        <h2>Búa til nýja deild</h2>
+        <h3>Búa til nýja deild</h3>
         <form onSubmit={onSubmitHandler}>
           <div>
             <label for="name">Nafn deildar: </label>
@@ -122,7 +126,7 @@ export function DepartmentForm() {
             <input id="description" type="text" value={description} onChange={onInputChangeDesc} />
           </div>
   
-          <button>Búa til</button>
+          <button className="button">Búa til</button>
         </form>
         {state === "empty" && <p></p>}
         {state === "error" && (

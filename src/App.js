@@ -7,7 +7,6 @@ import { Departments } from './components/departments/Departments';
 import { Department } from './components/departments/Department';
 import { Courses } from './components/courses/Courses';
 import { Course } from './components/courses/Course';
-import { Home } from './components/pages/Home';
 
 
 
@@ -19,7 +18,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Layout />}>
-              <Route index element={<Home />} />
+              <Route index element={<Departments />} />
               <Route path="departments" element={<Departments />} />
               <Route path="departments/:slug" element={<Department />} />
               <Route path="departments/:slug/courses" element={<Courses />} />

@@ -37,22 +37,38 @@ export function Courses() {
 
     return (
         <section>
-            <h2>????</h2>
+            <h2>Áfangar á braut</h2>
+            <CourseForm />
+            <Link to={`/departments/${slug}`}>Til baka</Link>
             {state === 'empty' && (<p>Engir áfangar</p>)}
             {state === 'error' && (<p>Villa við að sækja áfanga</p>)}
             {state === 'loading' && (<p>Sæki áfanga...</p>)}
-            <ul>
+            <table>
+              <tr>
+                <th>Áfanganúmer</th>
+                <th>Nafn Deildar</th>
+                <th>Einingar</th>
+                <th>Önn</th>
+                <th>Námsleið</th>
+                <th>Hlekkur á áfanga</th>
+              </tr>
                 {state === 'data' && courses.map((course, i) => {
                     return (
                         <>
-                        <li><Link to={course.courseId} key={i} className="App-link">{course.title}</Link></li>
+                          <tr>
+                            <td>{course.courseId}</td>
+                            <td><Link to={course.courseId} key={i} className="App-link">{course.title}</Link></td>
+                            <td>{course.units}</td>
+                            <td>{course.semester}</td>
+                            <td>{course.level}</td>
+                            <td><Link to={course.url} key={i} className="App-link">{course.url}</Link></td>
+                          </tr>
                         </>
                     )
                 })}
-            </ul>
+            </table>
+            
             <Link to={`/departments/${slug}`}>Til baka</Link>
-
-            <button onClick={fetchCourses}>Sækja áfanga</button>
         </section>
     )
 }
@@ -140,7 +156,7 @@ export function CourseForm() {
   
     return (
       <>
-        <h2>Búa til nýjan áfanga</h2>
+        <h3>Búa til nýjan áfanga fyrir braut</h3>
         <form onSubmit={onSubmitHandler}>
         <div>
             <label for="courseId">Áfanganúmer: </label>
@@ -168,10 +184,10 @@ export function CourseForm() {
           </div>
           <div>
             <label for="url">Hlekkur að áfanga: </label>
-            <input id="url" type="text" value={url} onChange={onInputChangeUrl} />
+            <input id="url" type="url" value={url} onChange={onInputChangeUrl} />
           </div>
   
-          <button>Búa til</button>
+          <button className="button">Búa til</button>
       </form>
         {state === "empty" && <p></p>}
         {state === "error" && (
